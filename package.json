@@ -1,0 +1,80 @@
+{
+   "name": "my-app",
+   "version": "0.1.0",
+   "private": true,
+   "dependencies": {
+      "@ant-design/icons": "^5.2.6",
+      "@hookform/resolvers": "^3.3.4",
+      "@radix-ui/react-avatar": "^1.0.4",
+      "@radix-ui/react-checkbox": "^1.0.4",
+      "@radix-ui/react-dialog": "^1.0.5",
+      "@radix-ui/react-dropdown-menu": "^2.0.6",
+      "@radix-ui/react-icons": "^1.3.0",
+      "@radix-ui/react-label": "^2.0.2",
+      "@radix-ui/react-slot": "^1.0.2",
+      "@radix-ui/react-switch": "^1.0.3",
+      "@supabase/supabase-js": "^2.38.4",
+      "@tanstack/react-table": "^8.16.0",
+      "@testing-library/jest-dom": "^5.14.1",
+      "@testing-library/react": "^13.0.0",
+      "@testing-library/user-event": "^13.2.1",
+      "@types/jest": "^27.0.1",
+      "@types/node": "^16.18.68",
+      "@types/react": "^18.0.0",
+      "@types/react-dom": "^18.0.0",
+      "antd": "^5.10.3",
+      "axios": "^1.6.2",
+      "class-variance-authority": "^0.7.0",
+      "clsx": "^2.1.0",
+      "framer-motion": "^10.16.16",
+      "geist": "^1.3.0",
+      "lucide-react": "^0.372.0",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-hook-form": "^7.51.3",
+      "react-router-dom": "^6.21.1",
+      "react-scripts": "^5.0.1",
+      "tailwind-merge": "^2.3.0",
+      "tailwindcss-animate": "^1.0.7",
+      "typescript": "^4.4.2",
+      "usehooks-ts": "^3.1.0",
+      "vaul": "^0.9.0",
+      "web-vitals": "^2.1.0",
+      "zod": "^3.23.4"
+   },
+   "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d build",
+      "generate_schema": "npx supabase gen types typescript --project-id susatrqshyxxrmkvuovd --schema public > src/types/supabase.ts"
+   },
+   "eslintConfig": {
+      "extends": [
+         "react-app",
+         "react-app/jest"
+      ]
+   },
+   "browserslist": {
+      "production": [
+         ">0.2%",
+         "not dead",
+         "not op_mini all"
+      ],
+      "development": [
+         "last 1 chrome version",
+         "last 1 firefox version",
+         "last 1 safari version"
+      ]
+   },
+   "devDependencies": {
+      "gh-pages": "^6.1.1",
+      "tailwindcss": "^3.4.3"
+   },
+   "prettier": {
+      "tabWidth": 3,
+      "printWidth": 100
+   }
+}
