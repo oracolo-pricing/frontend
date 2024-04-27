@@ -2,7 +2,7 @@
    "name": "my-app",
    "version": "0.1.0",
    "private": true,
-   "homepage": "https://oracolo-pricing.github.io/frontend/",
+   "homepage": "/frontend",
    "dependencies": {
       "@ant-design/icons": "^5.2.6",
       "@hookform/resolvers": "^3.3.4",
