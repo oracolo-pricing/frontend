@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
             <Button
                onClick={() => navigate("/positioning")}
                className="justify-start"
-               variant={window.location.pathname === "/positioning" ? "default" : "ghost"}
+               variant={window.location.pathname.includes("/positioning") ? "default" : "ghost"}
             >
                <LayoutList className="w-4 mr-2" />
                Positioning
@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
             </Button>
             <Button
                onClick={() => navigate("/tasks")}
-               variant={window.location.pathname === "/tasks" ? "default" : "ghost"}
+               variant={window.location.pathname.includes("/tasks") ? "default" : "ghost"}
                className="justify-start"
             >
                <Cog className="w-4 mr-2" />
