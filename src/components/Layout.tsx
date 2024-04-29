@@ -56,10 +56,10 @@ const Sidebar: React.FC = () => {
 
 const Footer: React.FC = () => {
    return (
-      <footer className="text-xs p-2 pb-4 opacity-50 bg-secondary">
-         {/* Get the version from the package.json */}
-         Copyright © 2024 AutoMind S.r.l. All rights reserved. Version:{" "}
-         {process.env.REACT_APP_VERSION}
+      <footer className="text-xs p-2 py-4 opacity-50 bg-secondary">
+         Beta version: {process.env.REACT_APP_VERSION}
+         <br />
+         Copyright © 2024 AutoMind S.r.l. All rights reserved.
       </footer>
    );
 };

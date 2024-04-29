@@ -39,7 +39,7 @@ export const getStoreRankingView = async (
    let query = supabase.from("rankings").select("*");
    if (myStoreOnly) query = query.eq("store_is_my_store", true);
    if (barcode) query = query.eq("barcode", barcode);
-   query.order(order_by, { ascending });
+   query.order(order_by, { ascending, nullsFirst: true });
    const { data, error } = await query;
    if (error) throw new Error(error.message);
    return data;
@@ -59,8 +59,14 @@ export const getProductRankingView = async (
    return data;
 };
 
-export const getMyStoreRankingView = async () => {
-   return getStoreRankingView(true);
+export const getMyStoreRankingView = async ({
+   order_by = "offer_rank",
+   ascending = true,
+}: {
+   order_by?: string;
+   ascending?: boolean;
+}) => {
+   return getStoreRankingView(true, null, order_by, ascending);
 };
 
 export const getMyStore = async () => {
@@ -134,7 +140,7 @@ export const getOffersWithStoreMarketplaceByBarcodes = async (barcodes: string[]
 
 export const getProducts = async (
    page = 1,
-   pageSize = 25,
+   pageSize = 100,
    order_by = "created_at",
    ascending = false
 ) => {

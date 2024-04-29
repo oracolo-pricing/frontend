@@ -36,11 +36,24 @@ export const PositioningPage: React.FC = () => {
    const navigate = useNavigate();
    const isMobile = useMediaQuery("(max-width: 768px)");
 
+   const [sortBy, setSortBy] = useState<keyof RankingView>("offer_rank");
+   const [ascending, setAscending] = useState<boolean>(true);
+
    const fetch = async () => {
       console.debug("Fetching data");
-      getMyStoreRankingView().then((data) => setRankings(data));
+      getMyStoreRankingView({ order_by: sortBy, ascending }).then((data) => setRankings(data));
+
       getMyStoreCounters().then((data) => setCounters(data));
       getActiveProductCount().then((data) => setActiveProductCount(data));
+   };
+
+   const handleHeaderClick = (column: string) => {
+      if (sortBy === column) {
+         setAscending(!ascending);
+      } else {
+         setSortBy(column as keyof RankingView);
+         setAscending(true);
+      }
    };
 
    useEffect(() => {
@@ -48,7 +61,7 @@ export const PositioningPage: React.FC = () => {
       const interval = setInterval(fetch, 60000);
       return () => clearInterval(interval);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   }, [sortBy, ascending]);
 
    return (
       <div className="overflow-auto w-full h-full">
@@ -83,6 +96,7 @@ export const PositioningPage: React.FC = () => {
          <div className="whitespace-nowrap">
             <DataTable
                onRowClick={(row) => navigate(`/products/${row.original.product_id}`)}
+               onHeaderClick={handleHeaderClick}
                columns={columns}
                data={rankings}
             />

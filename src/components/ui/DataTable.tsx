@@ -19,8 +19,9 @@ import {
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
-   onRowClick?: (row: Row<TData>) => void;
    meta?: TableMeta<TData>;
+   onRowClick?: (row: Row<TData>) => void;
+   onHeaderClick?: (column: string) => void;
 }
 
 declare module "@tanstack/react-table" {
@@ -32,8 +33,9 @@ declare module "@tanstack/react-table" {
 export function DataTable<TData, TValue>({
    columns,
    data,
-   onRowClick,
    meta,
+   onRowClick,
+   onHeaderClick,
 }: DataTableProps<TData, TValue>) {
    const table = useReactTable({
       data,
@@ -49,7 +51,11 @@ export function DataTable<TData, TValue>({
                <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                      return (
-                        <TableHead key={header.id} className="whitespace-nowrap">
+                        <TableHead
+                           onClick={() => onHeaderClick?.(header.id)}
+                           key={header.id}
+                           className="whitespace-nowrap"
+                        >
                            {header.isPlaceholder
                               ? null
                               : flexRender(header.column.columnDef.header, header.getContext())}
@@ -61,12 +67,12 @@ export function DataTable<TData, TValue>({
          </TableHeader>
          <TableBody>
             {table.getRowModel().rows?.length
-               ? table.getRowModel().rows.map((row, rowIndex) => (
+               ? table.getRowModel().rows.map((row) => (
                     <TableRow
                        key={row.id}
                        onClick={() => onRowClick?.(row)}
                        data-state={row.getIsSelected() && "selected"}
-                       className={`border-none`}
+                       className={`border-none ${onRowClick ? "cursor-pointer" : "cursor-default"}`}
                     >
                        {row.getVisibleCells().map((cell, columnIndex) => (
                           <TableCell key={cell.id}>
