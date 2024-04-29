@@ -1,13 +1,15 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ColumnDef } from "@tanstack/react-table";
 import { RankingView } from "types/entities";
+import { useMediaQuery } from "usehooks-ts";
 import { formatCurrency } from "utility/currency";
 import { getRankingCircleFromNumber } from "utility/ranking";
 import { getTimeDistance } from "utility/timeDistance";
 
-export const EllipsedText = ({ text, length = 30 }: { text: string | null; length?: number }) => {
+export const EllipsedText = ({ text, length = 25 }: { text: string | null; length?: number }) => {
+   const isMobile = useMediaQuery("(max-width: 768px)");
    if (!text) return null;
-   if (text.length <= length) return <>{text}</>;
+   if (!isMobile || text.length <= length) return <>{text}</>;
    return (
       <TooltipProvider>
          <Tooltip>
@@ -44,7 +46,7 @@ export const columns: ColumnDef<RankingView>[] = [
       cell: (props) => {
          const row = props.row.original;
          if (!row.best_offer_distance_ratio) return null;
-         const classNames = row.best_offer_distance_ratio < 0 ? "text-green-600" : "text-red-600";
+         const classNames = row.best_offer_distance_ratio < 0 ? "text-green-500" : "text-red-600";
          const sign = row.best_offer_distance_ratio < 0 ? "" : "+";
          return (
             <div className={classNames}>

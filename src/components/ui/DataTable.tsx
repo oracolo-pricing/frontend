@@ -48,13 +48,17 @@ export function DataTable<TData, TValue>({
       <Table>
          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-               <TableRow key={headerGroup.id}>
+               <TableRow key={headerGroup.id} className="hover:bg-transparent">
                   {headerGroup.headers.map((header) => {
                      return (
                         <TableHead
                            onClick={() => onHeaderClick?.(header.id)}
                            key={header.id}
-                           className="whitespace-nowrap"
+                           className={
+                              "whitespace-nowrap" + onHeaderClick
+                                 ? " cursor-pointer hover:bg-secondary"
+                                 : ""
+                           }
                         >
                            {header.isPlaceholder
                               ? null

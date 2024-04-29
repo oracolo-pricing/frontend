@@ -22,7 +22,7 @@ export const columns: ColumnDef<RankingView>[] = [
          const row = props.row.original;
          if (row.offer_rank === 1) return;
          if (!row.best_offer_distance_ratio) return null;
-         const classNames = row.best_offer_distance_ratio < 0 ? "text-green-600" : "text-red-600";
+         const classNames = row.best_offer_distance_ratio < 0 ? "text-green-500" : "text-red-600";
          const sign = row.best_offer_distance_ratio < 0 ? "" : "+";
          return (
             <div className={classNames}>

@@ -39,7 +39,7 @@ export const getStoreRankingView = async (
    let query = supabase.from("rankings").select("*");
    if (myStoreOnly) query = query.eq("store_is_my_store", true);
    if (barcode) query = query.eq("barcode", barcode);
-   query.order(order_by, { ascending, nullsFirst: true });
+   query.order(order_by, { ascending, nullsFirst: ascending });
    const { data, error } = await query;
    if (error) throw new Error(error.message);
    return data;

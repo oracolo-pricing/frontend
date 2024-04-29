@@ -63,7 +63,7 @@ export function getRankingCircleFromNumber(num: number) {
 
    return (
       <div
-         className={`font-medium text-xs rounded-full w-5 h-5 bg-red flex items-center justify-center ${backgroundColor} ${color}`}
+         className={`font-mono font-semibold text-xs rounded-full w-5 aspect-square bg-red flex items-center justify-center ${backgroundColor} ${color}`}
       >
          {number}
       </div>
