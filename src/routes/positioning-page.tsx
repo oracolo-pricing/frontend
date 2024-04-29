@@ -40,9 +40,7 @@ export const PositioningPage: React.FC = () => {
    const [ascending, setAscending] = useState<boolean>(true);
 
    const fetch = async () => {
-      console.debug("Fetching data");
       getMyStoreRankingView({ order_by: sortBy, ascending }).then((data) => setRankings(data));
-
       getMyStoreCounters().then((data) => setCounters(data));
       getActiveProductCount().then((data) => setActiveProductCount(data));
    };

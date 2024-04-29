@@ -1,3 +1,9 @@
+import {
+   DropdownMenu,
+   DropdownMenuContent,
+   DropdownMenuItem,
+   DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { columns } from "components/product-offers-table/columns";
 import { DataTable } from "components/ui/DataTable";
 import { Barcode } from "lucide-react";
@@ -10,6 +16,34 @@ import {
 } from "repository/Supabase";
 import { BarcodeWithShortcut, RankingView } from "types/entities";
 import { Tables } from "types/supabase";
+
+export const ProductImage: React.FC<{
+   url?: string | null;
+   alt?: string | null;
+}> = ({ url, alt }) => {
+   return (
+      <>
+         <DropdownMenu>
+            <DropdownMenuTrigger>
+               <img
+                  width={256}
+                  height={256}
+                  alt={alt ?? "Product image"}
+                  className={`${
+                     url ? "p-2" : ""
+                  } rounded-md border aspect-square object-contain max-w-[256px]`}
+                  src={url ?? "https://placehold.co/400x400/f4f4f5/aaaaaa?text=x"}
+               />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+               {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+               {/* <DropdownMenuSeparator /> */}
+               <DropdownMenuItem>Change URL</DropdownMenuItem>
+            </DropdownMenuContent>
+         </DropdownMenu>
+      </>
+   );
+};
 
 export const ProductPage: React.FC = () => {
    const { id } = useParams();
@@ -35,15 +69,7 @@ export const ProductPage: React.FC = () => {
    return (
       <div className="flex flex-col gap-8 w-full pt-4">
          <div className="flex flex-wrap gap-4 px-4">
-            <img
-               width={256}
-               height={256}
-               alt={product?.name}
-               className={`${
-                  product?.image_url ? "p-2" : ""
-               } rounded-md border aspect-square object-contain max-w-[256px]`}
-               src={product?.image_url ?? "https://placehold.co/400x400/f4f4f5/aaaaaa?text=x"}
-            />
+            <ProductImage url={product?.image_url} alt={product?.name} />
             <div>
                <div>
                   <h1 className="text-2xl font-bold mb-2">{product?.name}</h1>

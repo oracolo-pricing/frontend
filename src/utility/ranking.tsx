@@ -47,17 +47,17 @@ export function getRankingEmojiFromNumber(num: number) {
 
 export function getRankingCircleFromNumber(num: number) {
    let number = String(num);
-   let backgroundColor = "bg-gray-100";
+   let backgroundColor = "bg-secondary";
    let color = "";
    if (num === 1) {
       backgroundColor = "bg-yellow-300";
    }
    if (num === 2) {
-      backgroundColor = "bg-neutral-400";
+      backgroundColor = "bg-yellow-600";
       color = "text-white";
    }
    if (num === 3) {
-      backgroundColor = "bg-red-600";
+      backgroundColor = "bg-yellow-900";
       color = "text-white";
    }
 

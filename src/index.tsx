@@ -5,6 +5,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import { PositioningPage } from "routes/positioning-page";
 import { ProductPage } from "routes/product-page";
 import { ProductsPage } from "routes/products-page";
+import { SandboxPage } from "routes/sandbox-page";
 import { TasksPage } from "routes/tasks-page";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
@@ -36,6 +37,10 @@ const router = createBrowserRouter(
                element: <ProductPage />,
             },
          ],
+      },
+      {
+         path: "/sandbox",
+         element: <SandboxPage />,
       },
    ],
    {

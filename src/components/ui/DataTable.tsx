@@ -13,6 +13,7 @@ import {
    TableMeta,
    flexRender,
    getCoreRowModel,
+   getSortedRowModel,
    useReactTable,
 } from "@tanstack/react-table";
 
@@ -40,53 +41,59 @@ export function DataTable<TData, TValue>({
    const table = useReactTable({
       data,
       columns,
-      getCoreRowModel: getCoreRowModel(),
       meta,
+      getCoreRowModel: getCoreRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      manualPagination: true,
    });
 
    return (
-      <Table>
-         <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-               <TableRow key={headerGroup.id} className="hover:bg-transparent">
-                  {headerGroup.headers.map((header) => {
-                     return (
-                        <TableHead
-                           onClick={() => onHeaderClick?.(header.id)}
-                           key={header.id}
-                           className={
-                              "whitespace-nowrap" + onHeaderClick
-                                 ? " cursor-pointer hover:bg-secondary"
-                                 : ""
-                           }
-                        >
-                           {header.isPlaceholder
-                              ? null
-                              : flexRender(header.column.columnDef.header, header.getContext())}
-                        </TableHead>
-                     );
-                  })}
-               </TableRow>
-            ))}
-         </TableHeader>
-         <TableBody>
-            {table.getRowModel().rows?.length
-               ? table.getRowModel().rows.map((row) => (
-                    <TableRow
-                       key={row.id}
-                       onClick={() => onRowClick?.(row)}
-                       data-state={row.getIsSelected() && "selected"}
-                       className={`border-none ${onRowClick ? "cursor-pointer" : "cursor-default"}`}
-                    >
-                       {row.getVisibleCells().map((cell, columnIndex) => (
-                          <TableCell key={cell.id}>
-                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                       ))}
-                    </TableRow>
-                 ))
-               : null}
-         </TableBody>
-      </Table>
+      <>
+         <Table>
+            <TableHeader>
+               {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id} className="hover:bg-transparent">
+                     {headerGroup.headers.map((header) => {
+                        return (
+                           <TableHead
+                              onClick={() => onHeaderClick?.(header.id)}
+                              key={header.id}
+                              className={
+                                 "whitespace-nowrap" + onHeaderClick
+                                    ? " cursor-pointer hover:bg-secondary"
+                                    : ""
+                              }
+                           >
+                              {header.isPlaceholder
+                                 ? null
+                                 : flexRender(header.column.columnDef.header, header.getContext())}
+                           </TableHead>
+                        );
+                     })}
+                  </TableRow>
+               ))}
+            </TableHeader>
+            <TableBody>
+               {table.getRowModel().rows?.length
+                  ? table.getRowModel().rows.map((row) => (
+                       <TableRow
+                          key={row.id}
+                          onClick={() => onRowClick?.(row)}
+                          data-state={row.getIsSelected() && "selected"}
+                          className={`border-none ${
+                             onRowClick ? "cursor-pointer" : "cursor-default"
+                          }`}
+                       >
+                          {row.getVisibleCells().map((cell, columnIndex) => (
+                             <TableCell key={cell.id}>
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                             </TableCell>
+                          ))}
+                       </TableRow>
+                    ))
+                  : null}
+            </TableBody>
+         </Table>
+      </>
    );
 }
