@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { NewProductForm, OfferWithStoreMarketplace } from "types/entities";
+import { BarcodeWithShortcut, NewProductForm, OfferWithStoreMarketplace } from "types/entities";
 import { Database } from "types/supabase";
 
 export const supabase = createClient<Database>(
@@ -17,7 +17,7 @@ export const getActiveProductCount = async () => {
 };
 
 export const getStoreCounters = async (myStoreOnly: boolean = false) => {
-   const { data, error } = await supabase
+   const { data } = await supabase
       .from("counters")
       .select("*")
       .eq("store_is_my_store", myStoreOnly)
@@ -111,8 +111,12 @@ export const getProductById = async (id: string) => {
    return data;
 };
 
-export const getBarcodesByProductId = async (id: string) => {
-   const { data, error } = await supabase.from("barcodes").select("*").eq("product_id", id);
+export const getBarcodesAndShortcutsByProductId = async (id: string) => {
+   const { data, error } = await supabase
+      .from("barcodes")
+      .select("*, shortcut:shortcuts(*, marketplace:marketplaces(*))")
+      .eq("product_id", id)
+      .returns<BarcodeWithShortcut[]>();
    if (error) throw new Error(error.message);
    return data;
 };

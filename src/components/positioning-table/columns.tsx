@@ -1,8 +1,23 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ColumnDef } from "@tanstack/react-table";
 import { RankingView } from "types/entities";
 import { formatCurrency } from "utility/currency";
 import { getRankingCircleFromNumber } from "utility/ranking";
 import { getTimeDistance } from "utility/timeDistance";
+
+export const EllipsedText = ({ text, length = 30 }: { text: string | null; length?: number }) => {
+   if (!text) return null;
+   return text.length > length ? (
+      <TooltipProvider>
+         <Tooltip>
+            <TooltipTrigger>{text.slice(0, length)}…</TooltipTrigger>
+            <TooltipContent>{text}</TooltipContent>
+         </Tooltip>
+      </TooltipProvider>
+   ) : (
+      <div>{text}</div>
+   );
+};
 
 export const columns: ColumnDef<RankingView>[] = [
    {
@@ -15,6 +30,7 @@ export const columns: ColumnDef<RankingView>[] = [
    {
       accessorKey: "product_name",
       header: "Product",
+      cell: (props) => <EllipsedText text={props.row.original.product_name} />,
    },
    {
       header: "Price",

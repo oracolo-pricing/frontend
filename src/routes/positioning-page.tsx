@@ -37,6 +37,7 @@ export const PositioningPage: React.FC = () => {
    const isMobile = useMediaQuery("(max-width: 768px)");
 
    const fetch = async () => {
+      console.debug("Fetching data");
       getMyStoreRankingView().then((data) => setRankings(data));
       getMyStoreCounters().then((data) => setCounters(data));
       getActiveProductCount().then((data) => setActiveProductCount(data));
@@ -44,6 +45,8 @@ export const PositioningPage: React.FC = () => {
 
    useEffect(() => {
       fetch();
+      const interval = setInterval(fetch, 60000);
+      return () => clearInterval(interval);
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 

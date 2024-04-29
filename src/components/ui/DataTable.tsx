@@ -9,6 +9,7 @@ import {
 import {
    ColumnDef,
    Row,
+   RowData,
    TableMeta,
    flexRender,
    getCoreRowModel,
@@ -20,6 +21,12 @@ interface DataTableProps<TData, TValue> {
    data: TData[];
    onRowClick?: (row: Row<TData>) => void;
    meta?: TableMeta<TData>;
+}
+
+declare module "@tanstack/react-table" {
+   interface TableMeta<TData extends RowData> {
+      toggleActive: (productId: string) => void;
+   }
 }
 
 export function DataTable<TData, TValue>({

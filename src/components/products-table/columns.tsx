@@ -1,12 +1,6 @@
 import { Switch } from "@/components/ui/switch";
-import { ColumnDef, RowData } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { Tables } from "types/supabase";
-
-declare module "@tanstack/react-table" {
-   interface TableMeta<TData extends RowData> {
-      toggleActive: (productId: string) => void;
-   }
-}
 
 export const columns: ColumnDef<Tables<"products">>[] = [
    {

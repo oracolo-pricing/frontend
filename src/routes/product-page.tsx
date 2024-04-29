@@ -3,27 +3,34 @@ import { DataTable } from "components/ui/DataTable";
 import { Barcode } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getBarcodesByProductId, getProductById, getProductRankingView } from "repository/Supabase";
-import { RankingView } from "types/entities";
+import {
+   getBarcodesAndShortcutsByProductId,
+   getProductById,
+   getProductRankingView,
+} from "repository/Supabase";
+import { BarcodeWithShortcut, RankingView } from "types/entities";
 import { Tables } from "types/supabase";
 
 export const ProductPage: React.FC = () => {
    const { id } = useParams();
    const [product, setProduct] = useState<Tables<"products">>();
-   const [barcodes, setBarcodes] = useState<Tables<"barcodes">[]>();
+   const [barcodes, setBarcodes] = useState<BarcodeWithShortcut[]>();
    const [offers, setOffers] = useState<RankingView[]>([]);
 
-   async function fetch(id: string) {
+   async function fetch() {
+      if (!id) return;
       getProductById(id).then((res) => setProduct(res));
-      const barcodesRes = await getBarcodesByProductId(id);
+      const barcodesRes = await getBarcodesAndShortcutsByProductId(id);
       setBarcodes(barcodesRes);
       getProductRankingView(id).then((res) => setOffers(res));
    }
 
    useEffect(() => {
-      if (!id) return;
-      fetch(id);
-   }, [id]);
+      fetch();
+      const interval = setInterval(fetch, 60000);
+      return () => clearInterval(interval);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
 
    return (
       <div className="flex flex-col gap-8 w-full pt-4">

@@ -14,6 +14,8 @@ export const TasksPage: React.FC = () => {
 
    useEffect(() => {
       fetch();
+      const interval = setInterval(fetch, 60000);
+      return () => clearInterval(interval);
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 

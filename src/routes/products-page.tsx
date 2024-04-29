@@ -9,7 +9,6 @@ import { Tables } from "types/supabase";
 export const ProductsPage: React.FC = () => {
    const [products, setProducts] = useState<Tables<"products">[]>([]);
    const navigate = useNavigate();
-   console.debug({ products });
 
    function fetch() {
       getProducts().then(setProducts);
@@ -22,6 +21,8 @@ export const ProductsPage: React.FC = () => {
 
    useEffect(() => {
       fetch();
+      const interval = setInterval(fetch, 60000);
+      return () => clearInterval(interval);
    }, []);
 
    return (

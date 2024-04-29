@@ -5,10 +5,17 @@ export type OfferWithStoreMarketplace = Tables<"offers"> & {
    marketplace: Tables<"marketplaces">;
 };
 
+export type BarcodeWithShortcut = Tables<"barcodes"> & {
+   shortcut: Tables<"shortcuts"> & {
+      marketplace: Tables<"marketplaces">;
+   };
+};
+
 export type RankingView = Tables<"rankings">;
 export type CounterView = Tables<"counters">;
 
 export type Task = Tables<"tasks">;
+
 export type NewProductForm = {
    name: string;
    barcode: string;

@@ -20,7 +20,6 @@ export const Header: React.FC = () => {
 
    const fetch = async () => {
       const data = await getMyStore();
-      console.debug(data);
       setMyStore(data);
    };
 

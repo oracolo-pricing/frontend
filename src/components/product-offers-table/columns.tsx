@@ -17,10 +17,10 @@ export const columns: ColumnDef<RankingView>[] = [
       accessorFn: (row) => (row.offer_total_price ? formatCurrency(row.offer_total_price) : null),
    },
    {
-      header: "Distance",
+      header: "Discount",
       cell: (props) => {
          const row = props.row.original;
-         if (row.offer_rank == 1) return;
+         if (row.offer_rank === 1) return;
          if (!row.best_offer_distance_ratio) return null;
          const classNames = row.best_offer_distance_ratio < 0 ? "text-green-600" : "text-red-600";
          const sign = row.best_offer_distance_ratio < 0 ? "" : "+";
@@ -38,7 +38,7 @@ export const columns: ColumnDef<RankingView>[] = [
       cell: (props) => {
          const row = props.row.original;
          return row.store_is_my_store ? (
-            <span className="font-semibold">My Store</span>
+            <span className="font-semibold">{props.row.original.store_name}</span>
          ) : (
             row.store_name
          );
