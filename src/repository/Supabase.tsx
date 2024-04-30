@@ -92,11 +92,12 @@ export const addNewProduct = async (productForm: NewProductForm) => {
       product_id: productsData?.[0]?.id,
    });
 
-   await supabase.from("shortcuts").insert({
-      barcode: productForm.barcode,
-      url: productForm.shorcut,
-      marketplace_id: "c46a2f53-b4ac-4003-ae0a-ee0e3f4985e8", // TODO: fix hardcoded value
-   });
+   if (productForm.shortcut)
+      await supabase.from("shortcuts").insert({
+         barcode: productForm.barcode,
+         url: productForm.shortcut,
+         marketplace_id: "c46a2f53-b4ac-4003-ae0a-ee0e3f4985e8", // TODO: fix hardcoded value
+      });
 };
 
 export const getTasks = async (page = 1, pageSize = 25) => {

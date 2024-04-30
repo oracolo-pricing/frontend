@@ -19,7 +19,7 @@ export type Task = Tables<"tasks">;
 export type NewProductForm = {
    name: string;
    barcode: string;
-   shorcut: string;
+   shortcut?: string;
 };
 
 /**

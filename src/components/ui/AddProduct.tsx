@@ -20,7 +20,7 @@ import { z } from "zod";
 const addProductFormSchema = z.object({
    name: z.string().min(3).max(255),
    barcode: z.string(),
-   shortcut: z.string(),
+   shortcut: z.string().optional(),
 });
 
 export const AddProduct: React.FC<{ onSubmitted: () => void }> = ({ onSubmitted }) => {
@@ -33,7 +33,7 @@ export const AddProduct: React.FC<{ onSubmitted: () => void }> = ({ onSubmitted 
       await addNewProduct({
          name: values.name,
          barcode: values.barcode,
-         shorcut: values.shortcut,
+         shortcut: values.shortcut,
       });
       onSubmitted();
       setOpen(false);
